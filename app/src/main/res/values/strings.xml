@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">DBServerChallenge</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_forgot_password">Forgot your password? Click here</string>
+    <string name="login_new_account">New here? Create an account</string>
+    <string name="login_log_in">Log In</string>
+
+    <string name="warning_feature_not_available">This feature is not yet available</string>
+
+    <string name="error_invalid_email">Email invalid</string>
+    <string name="error_invalid_password">Password invalid. \nIt must have at least 6 characters</string>
 </resources>

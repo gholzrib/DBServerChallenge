@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background_login">
+
+    <TextView
+        android:id="@+id/act_login_txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_email"
+        style="@style/LabelStyle"/>
+
+    <EditText
+        android:id="@+id/act_login_edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
+        style="@style/FieldStyle"/>
+
+    <TextView
+        android:id="@+id/act_login_txt_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/login_password"
+        style="@style/LabelStyle"/>
+
+    <EditText
+        android:id="@+id/act_login_edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        style="@style/FieldStyle"/>
+
+    <TextView
+        android:id="@+id/act_login_btn_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_gravity="center"
+        android:text="@string/login_forgot_password"
+        style="@style/LabelStyle"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/act_login_btn_log_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="@string/login_log_in"
+        style="@style/ButtonStyle"/>
+
+    <TextView
+        android:id="@+id/act_login_btn_new_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_small"
+        android:layout_gravity="center"
+        android:text="@string/login_new_account"
+        style="@style/LabelStyle"/>
+
+</LinearLayout>
