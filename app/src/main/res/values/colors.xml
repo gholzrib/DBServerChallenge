@@ -8,6 +8,7 @@
     <color name="text_button">#ffffff</color>
 
     <color name="border_field">#8c8c8c</color>
+    <color name="border_try_again">#000000</color>
 
     <color name="background_login">#ffffff</color>
 </resources>

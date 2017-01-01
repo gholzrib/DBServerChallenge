@@ -1,5 +1,6 @@
 package gholzrib.dbserverchallenge.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -96,6 +97,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         PreferencesManager.setUser(this, user);
 
-        // TODO: 01/01/2017 Call MainActivity
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
