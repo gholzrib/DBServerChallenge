@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 
 import gholzrib.dbserverchallenge.R;
 import gholzrib.dbserverchallenge.core.models.User;
+import gholzrib.dbserverchallenge.core.utils.Constants;
 import gholzrib.dbserverchallenge.core.utils.PreferencesManager;
+import gholzrib.dbserverchallenge.ui.fragments.Restaurants;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,10 +42,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.act_main_drawer_menu_restaurants);
 
         User user = PreferencesManager.getUser(this);
         TextView txtUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_main_txt_name);
-        if (user != null && user.getName() != null) txtUserName.setText(user.getName());
+        if (user.getName() != null) txtUserName.setText(user.getName());
+
+        replaceFragment(Restaurants.newInstance(), Constants.FRG_TAG_RESTAURANTS);
     }
 
     @Override
@@ -62,12 +68,36 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Restaurants restaurants = (Restaurants) getSupportFragmentManager().findFragmentByTag(Constants.FRG_TAG_RESTAURANTS);
+        if (restaurants != null) {
+            if (restaurants.mCurrentMode == Constants.VISUALIZATION_MODE_MAP) {
+                menu.getItem(0).setIcon(R.drawable.ic_list_white_24dp);
+            } else {
+                menu.getItem(0).setIcon(R.drawable.ic_map_white_24dp);
+            }
+        } else {
+            menu.removeItem(R.id.action_view_form);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_view_form) {
+            Restaurants restaurants = (Restaurants) getSupportFragmentManager().findFragmentByTag(Constants.FRG_TAG_RESTAURANTS);
+            if (restaurants != null) {
+                if (restaurants.mCurrentMode == Constants.VISUALIZATION_MODE_MAP) {
+                    restaurants.mCurrentMode = Constants.VISUALIZATION_MODE_LIST;
+                } else {
+                    restaurants.mCurrentMode = Constants.VISUALIZATION_MODE_MAP;
+                }
+                restaurants.changeVisualizationMode();
+                invalidateOptionsMenu();
+            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -77,17 +107,22 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.act_main_drawer_menu_restaurants:
-                break;
-            case R.id.act_main_drawer_menu_my_team:
+                replaceFragment(Restaurants.newInstance(), Constants.FRG_TAG_RESTAURANTS);
                 break;
             case R.id.act_main_drawer_menu_logout:
                 showLogOutDialog();
                 break;
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragment(Fragment fragment, final String tag) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, fragment, tag)
+                .commit();
     }
 
     private void showLogOutDialog() {

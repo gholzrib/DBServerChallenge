@@ -13,11 +13,6 @@
             android:checked="true"/>
 
         <item
-            android:id="@+id/act_main_drawer_menu_my_team"
-            android:icon="@drawable/ic_group_black_24dp"
-            android:title="@string/title_my_team"/>
-
-        <item
             android:id="@+id/act_main_drawer_menu_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="@string/logout_title"

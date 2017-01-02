@@ -11,4 +11,7 @@
     <color name="border_try_again">#000000</color>
 
     <color name="background_login">#ffffff</color>
+
+    <color name="button_enable">#303F9F</color>
+    <color name="button_disable">#668c8c8c</color>
 </resources>

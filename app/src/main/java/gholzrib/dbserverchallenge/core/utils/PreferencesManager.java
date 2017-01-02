@@ -3,6 +3,7 @@ package gholzrib.dbserverchallenge.core.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 
@@ -80,6 +81,7 @@ public class PreferencesManager {
         setString(context, USER, userJson);
     }
 
+    @NonNull
     public static User getUser(Context context){
         Gson gson = new Gson();
         String json = getString(context, USER, null);
@@ -91,7 +93,7 @@ public class PreferencesManager {
             }
         }
 
-        return null;
+        return new User();
     }
 
     public static Boolean containsUser(Context context){

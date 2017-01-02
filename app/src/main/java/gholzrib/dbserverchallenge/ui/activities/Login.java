@@ -90,12 +90,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         PreferencesManager.setEmail(this, mEdtEmail.getText().toString());
         PreferencesManager.setPassword(this, mEdtPassword.getText().toString());
 
-        //Fake User
-        User user = new User();
-        user.setId(0);
-        user.setName("Test User");
-
-        PreferencesManager.setUser(this, user);
+        if (!PreferencesManager.containsUser(this)) {
+            //Fake User
+            User user = new User();
+            user.setId(0);
+            user.setName("Test User");
+            PreferencesManager.setUser(this, user);
+        }
 
         startActivity(new Intent(this, MainActivity.class));
     }
