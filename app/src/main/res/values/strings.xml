@@ -26,6 +26,8 @@
 
     <string name="vote">vote</string>
     <string name="votes">votes</string>
+    <string name="voting_period">Voting period</string>
+    <string name="voting_period_ended">Ended</string>
 
     <string name="distance">meters from you</string>
 
@@ -35,4 +37,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="message_loading">Loading</string>
+
+    <string name="daily_winner">Winner of the Day</string>
 </resources>

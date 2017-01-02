@@ -16,7 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import gholzrib.dbserverchallenge.R;
+import gholzrib.dbserverchallenge.core.handlers.AlarmHandler;
 import gholzrib.dbserverchallenge.core.models.User;
 import gholzrib.dbserverchallenge.core.utils.Constants;
 import gholzrib.dbserverchallenge.core.utils.PreferencesManager;
@@ -47,6 +50,21 @@ public class MainActivity extends AppCompatActivity
         User user = PreferencesManager.getUser(this);
         TextView txtUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_main_txt_name);
         if (user.getName() != null) txtUserName.setText(user.getName());
+
+        if (PreferencesManager.getFirstTime(this)) {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+            if (hour < 13) {
+                calendar.set(Calendar.HOUR_OF_DAY, 13);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                AlarmHandler.finishDailyVoting(this, calendar.getTimeInMillis());
+            }
+
+            AlarmHandler.scheduleClearWeeklyVoting(this);
+            PreferencesManager.setFirstTime(this, false);
+        }
 
         replaceFragment(Restaurants.newInstance(), Constants.FRG_TAG_RESTAURANTS);
     }

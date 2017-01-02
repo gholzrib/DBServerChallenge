@@ -7,6 +7,13 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import gholzrib.dbserverchallenge.core.models.Restaurant;
 import gholzrib.dbserverchallenge.core.models.User;
 
 /**
@@ -19,6 +26,8 @@ public class PreferencesManager {
     private static final String EMAIL_KEY = "email_key";
     private static final String PASSWORD_KEY = "password_key";
     private static final String USER = "user";
+    private static final String WEEKLY_WINNERS = "weekly_winners";
+    private static final String FIRST_TIME = "first_time";
 
     private static SharedPreferences getDefaultPreferencesManager(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -34,6 +43,18 @@ public class PreferencesManager {
     private static String getString(Context context, String key, String defaultValue) {
         SharedPreferences preferences = getDefaultPreferencesManager(context);
         return preferences.getString(key, defaultValue);
+    }
+
+    private static void setBoolean(Context context, String key, boolean value) {
+        SharedPreferences preferences = getDefaultPreferencesManager(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    private static boolean getBoolean(Context context, String key, boolean defaultValue) {
+        SharedPreferences preferences = getDefaultPreferencesManager(context);
+        return preferences.getBoolean(key, defaultValue);
     }
 
     private static Boolean containsValue(Context context, String key){
@@ -99,4 +120,44 @@ public class PreferencesManager {
     public static Boolean containsUser(Context context){
         return containsValue(context, USER);
     }
+
+    public static void setWeeklyWinners(Context context, ArrayList<Restaurant> restaurants) {
+        JSONArray jsonArray = new JSONArray();
+        Gson gson = new Gson();
+        for (int i = 0; i < restaurants.size(); i++) {
+            Restaurant restaurant = restaurants.get(i);
+            try {
+                jsonArray.put(new JSONObject(gson.toJson(restaurant)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        setString(context, WEEKLY_WINNERS, jsonArray.toString());
+    }
+
+    @NonNull
+    public static ArrayList<String> getWeeklyWinners(Context context) {
+        ArrayList<String> restaurants = new ArrayList<>();
+        Gson gson = new Gson();
+        try {
+            JSONArray jsonArray = new JSONArray(getString(context, WEEKLY_WINNERS, null));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Restaurant restaurant = gson.fromJson(jsonArray.getJSONObject(i).toString(), Restaurant.class);
+                restaurants.add(restaurant.getId());
+            }
+            return restaurants;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public static void setFirstTime(Context context, boolean firstTime) {
+        setBoolean(context, FIRST_TIME, firstTime);
+    }
+
+    public static boolean getFirstTime(Context context) {
+        return getBoolean(context, FIRST_TIME, true);
+    }
+
 }

@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import gholzrib.dbserverchallenge.R;
 import gholzrib.dbserverchallenge.core.models.Restaurant;
@@ -44,6 +43,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public void onBindViewHolder(RestaurantHolder holder, int position) {
         User user = PreferencesManager.getUser(mContext);
         Restaurant restaurant = mRestaurantsList.get(position);
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
         holder.mTxtName.setText(restaurant.getName());
         if (restaurant.getVicinity() != null) holder.mTxtAddress.setText(restaurant.getVicinity());
         if (mUserLocation != null) {
@@ -55,7 +57,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         }
         String votes = restaurant.getVotes() + " " + mContext.getString(R.string.votes);
         holder.mTxtVotes.setText(votes);
-        holder.mBtnVote.setEnabled(!user.getVotesOfTheDay().contains(restaurant.getId()));
+
+        boolean restaurantVotedByUser = user.getVotesOfTheDay().contains(restaurant.getId());
+        boolean restaurantAlreadyChosenThisWeek = PreferencesManager.getWeeklyWinners(mContext).contains(restaurant.getId());
+        boolean insideVotingHours = hour < 13;
+        holder.mBtnVote.setEnabled(!restaurantVotedByUser && !restaurantAlreadyChosenThisWeek && insideVotingHours);
     }
 
     @Override

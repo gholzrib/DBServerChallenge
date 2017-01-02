@@ -30,4 +30,8 @@ public class Constants {
     public static final int VISUALIZATION_MODE_MAP = 0;
     public static final int VISUALIZATION_MODE_LIST = 1;
 
+    public static final String EXTRA_ALARM_TYPE = "extra_alarm_type";
+    public static final String EXTRA_ALARM_TYPE_FINISH_DAILY_VOTING = "extra_alarm_type_finish_daily_voting";
+    public static final String EXTRA_ALARM_TYPE_CLEAR_WEEKLY_VOTING = "extra_alarm_type_clear_weekly_voting";
+
 }

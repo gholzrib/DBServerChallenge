@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import gholzrib.dbserverchallenge.R;
 import gholzrib.dbserverchallenge.core.handlers.RequestsHandler;
@@ -69,6 +72,9 @@ public class Restaurants extends Fragment implements OnMapReadyCallback, Request
     private LinearLayout mLnrNoInternet;
     private LinearLayout mLnrNoData;
 
+    private TextView votingPeriod;
+    private Calendar deadline;
+
     public int mCurrentMode = Constants.VISUALIZATION_MODE_MAP;
     private RequestsHandler mCurrentRequest;
     private Location mCurrentLocation;
@@ -96,6 +102,12 @@ public class Restaurants extends Fragment implements OnMapReadyCallback, Request
         mMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frg_restaurants_map);
         mMapFragment.getMapAsync(this);
 
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), linearLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.background_divider));
@@ -106,11 +118,15 @@ public class Restaurants extends Fragment implements OnMapReadyCallback, Request
         mRvRestaurants.addItemDecoration(dividerItemDecoration);
         mRvRestaurants.setAdapter(mAdapter);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
+        deadline = Calendar.getInstance();
+        deadline.set(Calendar.HOUR_OF_DAY, 13);
+        deadline.set(Calendar.MINUTE, 0);
+        deadline.set(Calendar.SECOND, 0);
+
+        votingPeriod = (TextView) view.findViewById(R.id.frg_restaurants_txt_voting_period);
+        votingPeriod.setText(getVotingPeriod());
+
+        callUpdateVotingPeriod();
 
         view.findViewById(R.id.cnt_no_internet_btn_try_again).setOnClickListener(this);
     }
@@ -272,6 +288,38 @@ public class Restaurants extends Fragment implements OnMapReadyCallback, Request
 
     private void updateList() {
         mAdapter.updateList(mRestaurantsList);
+    }
+
+    private String getVotingPeriod() {
+        Calendar now = Calendar.getInstance();
+
+        if (!now.getTime().after(deadline.getTime())) {
+            long minutesInMilli = 1000 * 60;
+            long hoursInMilli = minutesInMilli * 60;
+
+            long diff =  deadline.getTimeInMillis() - now.getTimeInMillis();
+            long hours = diff / hoursInMilli;
+            diff = diff % hoursInMilli;
+            long minutes = diff / minutesInMilli;
+
+            return hours + "h" + minutes;
+        } else {
+            return getString(R.string.voting_period_ended);
+        }
+    }
+
+    private void callUpdateVotingPeriod() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String s = getVotingPeriod();
+                votingPeriod.setText(s);
+
+                if (!s.equals(getString(R.string.voting_period_ended))) {
+                    callUpdateVotingPeriod();
+                }
+            }
+        }, 60000);
     }
 
 }
