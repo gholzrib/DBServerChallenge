@@ -136,18 +136,20 @@ public class PreferencesManager {
     }
 
     @NonNull
-    public static ArrayList<String> getWeeklyWinners(Context context) {
-        ArrayList<String> restaurants = new ArrayList<>();
+    public static ArrayList<Restaurant> getWeeklyWinners(Context context) {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
         Gson gson = new Gson();
-        try {
-            JSONArray jsonArray = new JSONArray(getString(context, WEEKLY_WINNERS, null));
-            for (int i = 0; i < jsonArray.length(); i++) {
-                Restaurant restaurant = gson.fromJson(jsonArray.getJSONObject(i).toString(), Restaurant.class);
-                restaurants.add(restaurant.getId());
+        String list = getString(context, WEEKLY_WINNERS, null);
+        if (list != null) {
+            try {
+                JSONArray jsonArray = new JSONArray(list);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    restaurants.add(gson.fromJson(jsonArray.getJSONObject(i).toString(), Restaurant.class));
+                }
+                return restaurants;
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            return restaurants;
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         return new ArrayList<>();
     }

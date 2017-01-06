@@ -304,7 +304,7 @@ public class Restaurants extends Fragment implements OnMapReadyCallback, Request
 
             return hours + "h" + minutes;
         } else {
-            return getString(R.string.voting_period_ended);
+            return getActivity().getString(R.string.voting_period_ended);
         }
     }
 
