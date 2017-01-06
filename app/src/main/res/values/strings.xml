@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">DBServerChallenge</string>
+    <string name="google_maps_key">AIzaSyCp2dCNe6MVG8WpZ3xmwhQxLO-q5HFAZ_E</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_forgot_password">Forgot your password? Click here</string>
+    <string name="login_new_account">New here? Create an account</string>
+    <string name="login_log_in">Log In</string>
+
+    <string name="warning_feature_not_available">This feature is not yet available</string>
+    <string name="warning_no_internet_connection">No internet connection</string>
+    <string name="warning_no_data">There is no data available</string>
+    <string name="try_again">Try Again</string>
+
+    <string name="error_invalid_email">Email invalid</string>
+    <string name="error_invalid_password">Password invalid. \nIt must have at least 6 characters</string>
+    <string name="error_request_unsuccessful">We were unable to complete your request, please try again later</string>
+
+    <string name="title_restaurants_list">Restaurants</string>
+
+    <string name="logout_title">Log Out</string>
+    <string name="logout_message">Are you sure you want to log out from the application?</string>
+    <string name="logout_action_no">No, keep me logged in</string>
+    <string name="logout_action_yes">Yes, log me out</string>
+
+    <string name="vote">vote</string>
+    <string name="votes">votes</string>
+    <string name="voting_period">Voting period</string>
+    <string name="voting_period_ended">Ended</string>
+
+    <string name="distance">meters from you</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="message_loading">Loading</string>
+
+    <string name="daily_winner">Winner of the Day</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cnt_no_internet_lnr_warning"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_signal_wifi_off_black_48dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:text="@string/warning_no_internet_connection"
+        style="@style/LabelStyle"/>
+
+    <TextView
+        android:id="@+id/cnt_no_internet_btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_tiny"
+        android:paddingBottom="@dimen/spacing_tiny"
+        android:paddingLeft="@dimen/spacing_small"
+        android:paddingRight="@dimen/spacing_small"
+        android:background="@drawable/background_try_again"
+        android:text="@string/try_again"
+        android:drawableLeft="@drawable/ic_replay_black_24dp"
+        android:drawableStart="@drawable/ic_replay_black_24dp"
+        android:drawablePadding="@dimen/spacing_tiny"
+        style="@style/LabelStyle"/>
+
+</LinearLayout>

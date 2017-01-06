@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/frg_restaurants_lnr_time"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voting_period"
+            android:textSize="@dimen/font_small"
+            style="@style/LabelStyle"/>
+
+        <TextView
+            android:id="@+id/frg_restaurants_txt_voting_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:gravity="center"
+            android:textSize="@dimen/font_larger"
+            android:text="@string/voting_period_ended"
+            style="@style/LabelStyle"/>
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/frg_restaurants_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/frg_restaurants_lnr_time"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/frg_restaurants_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/frg_restaurants_lnr_time"
+        android:visibility="gone"/>
+
+    <include layout="@layout/content_no_data"/>
+    <include layout="@layout/content_no_internet"/>
+
+</RelativeLayout>

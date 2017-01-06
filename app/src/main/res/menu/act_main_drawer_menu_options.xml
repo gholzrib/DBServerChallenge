@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/act_main_drawer_menu_options_groups"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/act_main_drawer_menu_restaurants"
+            android:icon="@drawable/ic_restaurant_black_24dp"
+            android:title="@string/title_restaurants_list"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/act_main_drawer_menu_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/logout_title"
+            android:checkable="false"/>
+
+    </group>
+
+</menu>

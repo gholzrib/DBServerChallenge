@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_small">
+
+    <TextView
+        android:id="@+id/adp_restaurants_txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bunger King"
+        android:textSize="@dimen/font_large"
+        android:textStyle="bold"
+        android:gravity="center"
+        style="@style/LabelStyle"/>
+
+    <LinearLayout
+        android:id="@+id/adp_restaurants_lnr_votes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/adp_restaurants_txt_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/adp_restaurants_txt_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            style="@style/LabelStyle"/>
+
+        <TextView
+            android:id="@+id/adp_restaurants_btn_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:text="@string/vote"
+            style="@style/ButtonStyle"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/adp_restaurants_txt_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:layout_marginRight="@dimen/spacing_tiny"
+        android:layout_marginEnd="@dimen/spacing_tiny"
+        android:layout_below="@id/adp_restaurants_txt_name"
+        android:layout_toLeftOf="@id/adp_restaurants_lnr_votes"
+        android:layout_toStartOf="@id/adp_restaurants_lnr_votes"
+        style="@style/LabelStyle"/>
+
+    <TextView
+        android:id="@+id/adp_restaurants_txt_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:layout_marginRight="@dimen/spacing_tiny"
+        android:layout_marginEnd="@dimen/spacing_tiny"
+        android:layout_below="@id/adp_restaurants_txt_address"
+        android:layout_toLeftOf="@id/adp_restaurants_lnr_votes"
+        android:layout_toStartOf="@id/adp_restaurants_lnr_votes"
+        style="@style/LabelStyle"/>
+
+
+</RelativeLayout>
